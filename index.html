@@ -104,6 +104,7 @@
       }
       .brand {
         display: flex;
+        width: 180px;
         gap: 10px;
         align-items: center;
         font-weight: 800;
@@ -645,6 +646,33 @@
             </span>
           </a>
 
+          <style>
+            @media (max-width: 520px) {
+              header .nav {
+                gap: 10px;
+              }
+
+              header .nav-actions {
+                width: 100%;
+                justify-content: flex-end;
+                gap: 8px;
+                flex-wrap: wrap;
+              }
+
+              header .nav-actions .btn {
+                padding: 8px 10px;
+                border-radius: 10px;
+                font-size: 12px;
+                gap: 8px;
+              }
+
+              header .nav-actions .btn img {
+                width: 18px !important;
+                height: 18px !important;
+              }
+            }
+          </style>
+
           <div class="nav-actions">
             <a
               class="btn primary"
@@ -866,7 +894,7 @@
           <div>
             <h3>Öffnungszeiten</h3>
             <div class="meta">
-              Mo-Do: <b>12:00 - 22:00</b><br />
+              Montag-Samstag: <b>11:00 - 22:00 Uhr</b><br />
               Fr-Sa: <b>12:00 - 23:00</b><br />
               So: <b>13:00 - 22:00</b>
             </div>
