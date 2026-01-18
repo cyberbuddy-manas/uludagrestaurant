@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uludag Pizza & Grill</title>
+    <style>
+      :root {
+        --bgTop: #1a0a0a;
+        --bgMid: #5a0f12;
+        --bgBottom: #d12b1f;
+        --card: #0f0b0b;
+        --text: #ffffff;
+        --muted: rgba(255, 255, 255, 0.75);
+        --line: rgba(255, 255, 255, 0.14);
+        --accent: #ffcf66;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial;
+        color: var(--text);
+        background:
+          radial-gradient(
+            1200px 600px at 50% -100px,
+            rgba(255, 255, 255, 0.08),
+            transparent 60%
+          ),
+          linear-gradient(
+            180deg,
+            var(--bgTop) 0%,
+            var(--bgMid) 45%,
+            var(--bgBottom) 100%
+          );
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        overflow: hidden;
+        background: rgba(10, 8, 8, 0.92);
+      }
+
+      header .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .header-fire {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -10px;
+        bottom: -30px;
+        z-index: 1;
+        pointer-events: none;
+
+        background-image: url("https://usagif.com/wp-content/uploads/gifs/fire-102.gif");
+        background-repeat: repeat-x;
+        background-position: center bottom;
+        background-size: 520px auto;
+
+        opacity: 0.55;
+        filter: saturate(1.2) contrast(1.05) blur(0.2px);
+      }
+
+      /* Darken so text stays readable */
+      .header-fire::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(10, 8, 8, 0.82) 0%,
+          rgba(10, 8, 8, 0.55) 55%,
+          rgba(10, 8, 8, 0.25) 100%
+        );
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+      }
+      .brand small {
+        display: block;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 1.2px;
+      }
+      .nav-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.25);
+        color: var(--text);
+        font-weight: 700;
+      }
+      .btn.primary {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .icon {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 54px 0 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 24px;
+        align-items: center;
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      h1 {
+        margin: 14px 0 10px;
+        font-size: 48px;
+        line-height: 1.05;
+        letter-spacing: -0.5px;
+      }
+      .sub {
+        margin: 0 0 20px;
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 56ch;
+      }
+      .quick-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .qa {
+        flex: 1;
+        min-width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 12px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.22);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        font-size: 12px;
+      }
+      .hero-card {
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.22);
+        padding: 18px;
+      }
+      .hero-card .card-title {
+        font-weight: 900;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+      .hero-card .big {
+        font-size: 54px;
+        font-weight: 900;
+        line-height: 1;
+        margin: 0;
+        text-align: center;
+      }
+      .hero-card .small {
+        margin: 10px 0 0;
+        text-align: center;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      /* About section: text left, image right */
+      section {
+        padding: 34px 0;
+      }
+      .section-title {
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+        font-weight: 900;
+      }
+      .about {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 22px;
+        align-items: center;
+      }
+      .card {
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.22);
+        padding: 22px;
+      }
+      .about p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .about ul {
+        margin: 14px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .img {
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.22);
+        min-height: 280px;
+        position: relative;
+      }
+      .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05) contrast(1.05);
+      }
+      .img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.15),
+          rgba(0, 0, 0, 0.45)
+        );
+        pointer-events: none;
+      }
+
+      /* Review CTA */
+      .cta {
+        position: relative;
+      }
+      .cta-wrap {
+        border-radius: 26px;
+        border: 1px solid var(--line);
+        background:
+          radial-gradient(
+            600px 240px at 20% 0%,
+            rgba(255, 255, 255, 0.12),
+            transparent 60%
+          ),
+          rgba(0, 0, 0, 0.22);
+        padding: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      /* Fix star alignment */
+      .cta h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .stars {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0; /* remove baseline offset */
+        line-height: 1;
+        position: relative;
+      }
+
+      /* Better star look */
+      .star {
+        width: auto;
+        height: auto;
+        display: inline-block;
+        font-size: 18px; /* adjust as needed */
+        line-height: 1;
+        letter-spacing: 0;
+        opacity: 0.95;
+        text-shadow: 0 0 10px rgba(255, 207, 102, 0.25);
+      }
+
+      /* Shiny sweep animation across stars */
+      .stars::after {
+        content: "";
+        position: absolute;
+        top: -8px;
+        bottom: -8px;
+        left: -30%;
+        width: 40%;
+        background: linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0) 35%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0) 65%,
+          transparent 100%
+        );
+        transform: skewX(-18deg);
+        filter: blur(1px);
+        opacity: 0.6;
+        animation: starShine 2.2s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      /* Optional: slight pulse on individual stars */
+      .star {
+        animation: starPulse 2.2s ease-in-out infinite;
+      }
+      .star:nth-child(2) {
+        animation-delay: 0.05s;
+      }
+      .star:nth-child(3) {
+        animation-delay: 0.1s;
+      }
+      .star:nth-child(4) {
+        animation-delay: 0.15s;
+      }
+      .star:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+
+      @keyframes starShine {
+        0% {
+          transform: translateX(-120%) skewX(-18deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 0.55;
+        }
+        45% {
+          opacity: 0.75;
+        }
+        70% {
+          opacity: 0.35;
+        }
+        100% {
+          transform: translateX(320%) skewX(-18deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes starPulse {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 0.92;
+        }
+        50% {
+          transform: translateY(-1px) scale(1.06);
+          opacity: 1;
+        }
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 34px;
+        border-top: 1px solid var(--line);
+        background: rgba(10, 8, 8, 0.5);
+      }
+      .footer {
+        padding: 24px 0;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        align-items: start;
+      }
+      .footer h3 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .footer .meta {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .footer .meta b {
+        color: var(--text);
+      }
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 14px 0;
+      }
+
+      /* Flame strip (simple) */
+      .flames {
+        height: 110px;
+        margin-top: 14px;
+        background:
+          radial-gradient(
+            50px 40px at 10% 90%,
+            rgba(255, 170, 60, 0.65),
+            transparent 70%
+          ),
+          radial-gradient(
+            60px 45px at 22% 95%,
+            rgba(255, 120, 40, 0.55),
+            transparent 72%
+          ),
+          radial-gradient(
+            60px 45px at 38% 92%,
+            rgba(255, 170, 60, 0.55),
+            transparent 72%
+          ),
+          radial-gradient(
+            70px 50px at 55% 98%,
+            rgba(255, 120, 40, 0.55),
+            transparent 72%
+          ),
+          radial-gradient(
+            60px 45px at 72% 94%,
+            rgba(255, 170, 60, 0.55),
+            transparent 72%
+          ),
+          radial-gradient(
+            70px 50px at 90% 98%,
+            rgba(255, 120, 40, 0.55),
+            transparent 72%
+          ),
+          linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+        opacity: 0.9;
+        border-radius: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .hero-grid,
+        .about,
+        .footer {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 40px;
+        }
+      }
+
+      /* Carousel */
+      .carousel {
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+        position: relative;
+      }
+      .carousel-track {
+        display: flex;
+        transition: transform 450ms ease;
+        will-change: transform;
+      }
+      .carousel-slide {
+        min-width: 100%;
+        position: relative;
+        height: 420px;
+      }
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05) contrast(1.05);
+      }
+      .carousel-slide::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.55)
+        );
+      }
+      .carousel-overlay {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        z-index: 2;
+      }
+      .carousel-overlay h1 {
+        margin: 0;
+        font-size: 40px;
+        line-height: 1.05;
+      }
+      .carousel-overlay p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        max-width: 60ch;
+      }
+      .carousel-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .carousel-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.35);
+        color: var(--text);
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .carousel-btn:hover {
+        transform: translateY(-1px);
+      }
+      .carousel-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        z-index: 2;
+      }
+      .carousel-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.18);
+        cursor: pointer;
+      }
+      .carousel-dot.active {
+        background: rgba(255, 255, 255, 0.85);
+      }
+      @media (max-width: 900px) {
+        .carousel-slide {
+          height: 360px;
+        }
+        .carousel-overlay h1 {
+          font-size: 32px;
+        }
+      }
+
+      .btn-google {
+        gap: 10px;
+        padding-right: 16px;
+      }
+
+      .google-icon {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="header-fire" aria-hidden="true"></div>
+      <div class="container">
+        <div class="nav">
+          <a class="brand" href="#top" aria-label="Uludag Pizza & Grill">
+            <span>
+              ULUDAG<br />
+              <small>Pizza & Grill</small>
+            </span>
+          </a>
+
+          <div class="nav-actions">
+            <a
+              class="btn primary"
+              href="https://drive.google.com/file/d/1IwrP8vT9Vweq9tGnDOBdoSRuUti2NAuw/view?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                class="google-icon"
+                style="width: 25px; height: 25px"
+                src="./speisekarte.png"
+                alt="Google"
+              />
+              Speisekarte
+            </a>
+            <!-- Header buttons -->
+            <a
+              class="btn primary"
+              href="https://search.google.com/local/writereview?placeid=ChIJRWPfk0FjvkcRrnq0_gPagCk"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                class="google-icon"
+                style="width: 25px; height: 25px"
+                src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+                alt="Google"
+              />
+              Bewertung
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Banner / Hero -->
+      <section class="hero">
+        <div class="container">
+          <div class="carousel" id="carousel">
+            <div class="carousel-track" id="carouselTrack">
+              <!-- Replace these image URLs with your own -->
+              <style>
+                .carousel-media {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  display: block;
+                }
+              </style>
+              <div class="carousel-slide">
+                <video
+                  class="carousel-media"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                >
+                  <source src="home-vid.MOV" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+
+            <div class="carousel-overlay">
+              <div>
+                <!-- <span class="kicker">Hot and Spicy Kebab</span> -->
+                <h1>Frischer Döner. Heißer Grill. Schneller Service.</h1>
+                <p style="margin-bottom: 10px">Vor Ort essen oder mitnehmen.</p>
+              </div>
+
+              <div class="carousel-controls">
+                <button
+                  class="carousel-btn"
+                  type="button"
+                  id="prevBtn"
+                  aria-label="Previous slide"
+                >
+                  ‹
+                </button>
+                <button
+                  class="carousel-btn"
+                  type="button"
+                  id="nextBtn"
+                  aria-label="Next slide"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="carousel-dots"
+              id="carouselDots"
+              aria-label="Carousel pagination"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About: text left, image right -->
+      <section id="about">
+        <div class="container">
+          <div class="about">
+            <div class="card">
+              <div class="img" aria-label="Restaurant / food image">
+                <img
+                  src="./restro-front.jpeg"
+                  alt="Uludag Pizza & Grill food"
+                />
+              </div>
+              <br />
+              <p class="section-title">Über uns</p>
+              <p>
+                Uludag Pizza & Grill ist ein traditionsreicher Dönerladen mit
+                frischem Essen. Neben Döner servieren wir auch Pizza und
+                Grillspezialitäten. Viele unserer Stammgäste kommen seit Jahren
+                regelmäßig zu uns – das spricht für sich.
+              </p>
+              <ul>
+                <li>Frisch zubereiteter Döner</li>
+                <li>Pizza & Grillspezialitäten</li>
+                <li>Beliebt bei Stammgästen</li>
+              </ul>
+            </div>
+
+            <!-- <div class="img" aria-label="Restaurant / food image">
+              <img
+                src="https://images.unsplash.com/photo-1601924638867-3ec2f58d9f2b?auto=format&fit=crop&w=1200&q=70"
+                alt="Pizza fresh out of the oven"
+              />
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Review CTA -->
+      <section id="review" class="cta">
+        <div class="container">
+          <div class="cta-wrap">
+            <div>
+              <h2>
+                Bewerten Sie uns
+                <span class="stars" aria-hidden="true">
+                  <span class="star">★</span><span class="star">★</span
+                  ><span class="star">★</span><span class="star">★</span
+                  ><span class="star">★</span>
+                </span>
+              </h2>
+              <p>Dauert 30 Sekunden und hilft uns, besser zu werden. Danke!</p>
+            </div>
+
+            <div class="cta-actions">
+              <!-- Replace href with your Google review link -->
+              <a
+                class="btn primary btn-google"
+                href="https://search.google.com/local/writereview?placeid=ChIJRWPfk0FjvkcRrnq0_gPagCk"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  class="google-icon"
+                  src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+                  alt="Google"
+                />
+                Auf Google bewerten
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <style>
+      .map-wrap {
+        border-radius: 26px;
+        border: 1px solid var(--line);
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.22);
+        min-height: 360px;
+      }
+      .map-wrap iframe {
+        width: 100%;
+        height: 420px;
+        border: 0;
+        display: block;
+      }
+      @media (max-width: 900px) {
+        .map-wrap iframe {
+          height: 360px;
+        }
+      }
+    </style>
+    <section id="map">
+      <div class="container">
+        <p class="section-title">Anfahrt</p>
+        <div class="map-wrap" aria-label="Google Maps Karte">
+          <iframe
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20360.917462315574!2d7.5408874500000005!3d50.364416000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be634193df6345%3A0x2980da03feb47aae!2sUludag%20Pizza%20Grill!5e0!3m2!1sen!2sde!4v1768749269184!5m2!1sen!2sde"
+            title="Uludag Pizza & Grill – Trierer Str. 194, 56072 Koblenz"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer: opening hours + phone -->
+    <footer>
+      <div class="container">
+        <div class="footer">
+          <div>
+            <h3>Uludag Pizza & Grill</h3>
+            <div class="meta">
+              <b>Address:</b> Trierer Str. 194, 56072 Koblenz<br />
+            </div>
+          </div>
+
+          <div>
+            <h3>Öffnungszeiten</h3>
+            <div class="meta">
+              Mo-Do: <b>12:00 - 22:00</b><br />
+              Fr-Sa: <b>12:00 - 23:00</b><br />
+              So: <b>13:00 - 22:00</b>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="meta">
+              <b>Telefon:</b> +49 000 000000<br />
+              <b>WhatsApp:</b> +49 000 000000
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        const track = document.getElementById("carouselTrack");
+        const slides = Array.from(track.children);
+        const prev = document.getElementById("prevBtn");
+        const next = document.getElementById("nextBtn");
+        const dotsWrap = document.getElementById("carouselDots");
+
+        let index = 0;
+        const AUTOPLAY_MS = 12000;
+        let timer = null;
+
+        function setIndex(i) {
+          index = (i + slides.length) % slides.length;
+          track.style.transform = `translateX(-${index * 100}%)`;
+          Array.from(dotsWrap.children).forEach((d, di) =>
+            d.classList.toggle("active", di === index),
+          );
+        }
+
+        function buildDots() {
+          dotsWrap.innerHTML = "";
+          slides.forEach((_, i) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "carousel-dot" + (i === 0 ? " active" : "");
+            b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+            b.addEventListener("click", () => {
+              stop();
+              setIndex(i);
+              start();
+            });
+            dotsWrap.appendChild(b);
+          });
+        }
+
+        function start() {
+          if (slides.length <= 1) return;
+          stop();
+          timer = window.setInterval(() => setIndex(index + 1), AUTOPLAY_MS);
+        }
+
+        function stop() {
+          if (timer) window.clearInterval(timer);
+          timer = null;
+        }
+
+        prev.addEventListener("click", () => {
+          stop();
+          setIndex(index - 1);
+          start();
+        });
+        next.addEventListener("click", () => {
+          stop();
+          setIndex(index + 1);
+          start();
+        });
+
+        const root = document.getElementById("carousel");
+        root.addEventListener("mouseenter", stop);
+        root.addEventListener("mouseleave", start);
+
+        buildDots();
+        setIndex(0);
+        start();
+      })();
+    </script>
+  </body>
+</html>
